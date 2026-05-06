@@ -1,10 +1,19 @@
 services:
-    url_shortener:
-        build: .
-        ports:
-            - "5000:5000"
-        volumes:
-            - db_shortener_url:/opt/app/data
+  url_shortener:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - db_shortener_url:/opt/app/data
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - url_shortener
 
 volumes:
-    db_shortener_url:
+  db_shortener_url:
