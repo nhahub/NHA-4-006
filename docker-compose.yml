@@ -1,0 +1,10 @@
+services:
+    url_shortener:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - db_shortener_url:/opt/app/data
+
+volumes:
+    db_shortener_url:
