@@ -7,7 +7,7 @@ services:
       - db_shortener_url:/opt/app/data
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3
     ports:
       - "9090:9090"
     volumes:
