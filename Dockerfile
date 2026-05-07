@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 RUN apt update && apt install -y python3 python3-pip
 
 # Application dependencies
-RUN pip install flask hashids
+RUN pip install flask hashids prometheus_client
 
 # Create user and set permissions
 RUN useradd kyrolles
