@@ -1,0 +1,48 @@
+services:
+  url_shortener:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - db_shortener_url:/opt/app/data
+
+  prometheus:
+    image: prom/prometheus:v3
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./rules.yml:/etc/prometheus/rules.yml
+      - prometheus_data:/prometheus
+    depends_on:
+      - url_shortener
+
+  alertmanager:
+    image: prom/alertmanager:v0.32.1
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./auth_e.txt:/etc/alertmanager/auth_e.txt
+
+    depends_on:
+      - prometheus
+
+  grafana:
+    image: grafana/grafana:13.0.1-security-01
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=4kadmin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  db_shortener_url:
+  prometheus_data:
+  grafana_data:

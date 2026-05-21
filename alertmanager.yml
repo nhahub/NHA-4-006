@@ -1,0 +1,18 @@
+route:
+  receiver: 'gmail-notifications'
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+
+receivers:
+  - name: 'gmail-notifications'
+    email_configs:
+      - to: "kyrollesraafat@gmail.com"
+        from: "kyrollesraafat99@gmail.com"
+        smarthost: "smtp.gmail.com:587"
+        auth_username: "kyrollesraafat99@gmail.com"
+        auth_password_file: /etc/alertmanager/auth_e.txt
+        headers:
+          subject: "Prometheus Mail Alerts"
+        send_resolved: true
