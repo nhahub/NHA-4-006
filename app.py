@@ -129,4 +129,4 @@ def redirect_to_url(short_code):
 # Entry point: only runs when you execute this file directly
 if __name__ == "__main__":
     init_db()          # create the table before the first request
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)

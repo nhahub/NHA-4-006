@@ -1,9 +1,9 @@
 route:
   receiver: 'gmail-notifications'
   group_by: ['alertname']
-  group_wait: 30s        # wait 30s to group related alerts together
-  group_interval: 5m     # wait 5m before sending updates on the same alert
-  repeat_interval: 4h    # re-send if alert is still firing after 4 hours
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
 
 receivers:
   - name: 'gmail-notifications'
